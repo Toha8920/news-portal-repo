@@ -29,6 +29,7 @@ const loadCategoryDetails = async (category_id) => {
     // console.log(url)
     const res = await fetch(url)
     const data = await res.json()
+        .catch(error => console.log(error))
     displayCategoryDetails(data.data)
 }
 
@@ -54,19 +55,59 @@ const displayCategoryDetails = async (categorys) => {
     <div class="card-text d-flex justify-content-between">
     <div class="d-flex">
     <img class="mx-3" style="height: 50px; width: 50px; border-radius: 50px;" src="${category.author.img}" alt="">
-    <p class="mt-2"> ${category.author.name}</p>
+    <p class="mt-2"> ${category.author.name ? category.author.name : 'No found author'}</p>
     </div>
     <div> 
     <p> ${category.total_view}</p>
     </div>
     <div>
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Details</button>
+    <button onclick="loadModalDetails('${category._id}')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+    >Details</button>
     </div>
     </div>
     `;
-        sectionDetails.appendChild(sectionDiv)
-    })
+        sectionDetails.appendChild(sectionDiv);
+
+    });
+
+
 
 }
 
+
+const loadModalDetails = async (_id) => {
+    const url = `https://openapi.programming-hero.com/api/news/${_id}`
+    const res = await fetch(url)
+    const data = await res.json()
+        .catch(error => console.log(error))
+    displayModalDetails(data.data[0])
+}
+
+const displayModalDetails = (id) => {
+    console.log(id)
+    const modalTitle = document.getElementById('modal-title')
+    modalTitle.innerText = id.title;
+    const modalBody = document.getElementById('modal-body')
+    modalBody.innerHTML = `
+    <p>Total View:${id.total_view ? id.total_view : "No found message"}</p>
+    <p>Author Name:${id.author.name ? id.author.name : "No found Author"}</p>
+    <p>Published Date:${id.author.published_date ? id.author.published_date : "No found message"}</p>
+    <p>Is today Pick:${id.others_info.is_todays_pick}</p>
+    <p>Ratting Badge:${id.rating.badge}</p>
+    
+    <img src="${id.author.img}"style="height: 300px; width: 300px; border-radius: 10px;">
+    `
+}
+
+document.getElementById('bolg-section').addEventListener('click', function () {
+    const showBlog = document.getElementById('show-blog')
+    showBlog.innerHTML = `
+   <h5><strong class="text-success">1. The distinguis of var let const is : </strong>  Var variables can be updated and re-declared within its scope; let variables can be updated but not re-declared; const variables can neither be updated nor re-declared. </h5>
+
+
+   <h5 class="mt-4"><strong class="text-success">2. Defference between regular and arrow function : </strong>Regular functions created using function declarations or expressions are constructible and callable. Since regular functions are constructible, they can be called using the new keyword. However, the arrow functions are only callable and not constructible, i.e arrow functions can never be used as constructor functions. </h5>
+
+   <h5  class="mt-4"><strong class="text-success">3. Advantage of using template string : </strong> A template is a sample document that has some pre defined format which contain image or text that may be changed and used by the user easily. It helps you save money and time. Templates promote client satisfaction and clarity. It boosts productivity. </h5>
+   `
+})
 loadCategory()
