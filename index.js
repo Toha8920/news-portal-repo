@@ -26,14 +26,14 @@ const displayCategory = async (categories) => {
 const loadCategoryDetails = async (category_id) => {
     // console.log(category_id)
     const url = `https://openapi.programming-hero.com/api/news/category/${category_id}`
-    console.log(url)
+    // console.log(url)
     const res = await fetch(url)
     const data = await res.json()
     displayCategoryDetails(data.data)
 }
 
 const displayCategoryDetails = async (categorys) => {
-    console.log(categorys)
+    // console.log(categorys)
     const sectionDetails = document.getElementById('section-details');
     sectionDetails.textContent = ``
     categorys.forEach(category => {
@@ -48,14 +48,22 @@ const displayCategoryDetails = async (categorys) => {
         </div>
         <div class="col-md-8">
             <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural
-                    lead-in to additional content. This content is a little bit longer.</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            </div>
-        </div>
+                <h5 class="card-title">${category.title}</h5>
+                <p class="card-text">${category.details.slice(0, 500)}
+    }</p >
+    <div class="card-text d-flex justify-content-between">
+    <div class="d-flex">
+    <img class="mx-3" style="height: 50px; width: 50px; border-radius: 50px;" src="${category.author.img}" alt="">
+    <p class="mt-2"> ${category.author.name}</p>
     </div>
-       `;
+    <div> 
+    <p> ${category.total_view}</p>
+    </div>
+    <div>
+    <button class="btn btn-primary">search</button>
+    </div>
+    </div>
+    `;
         sectionDetails.appendChild(sectionDiv)
     })
 
