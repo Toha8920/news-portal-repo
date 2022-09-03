@@ -6,8 +6,8 @@ const loadCategory = async () => {
     displayCategory(data.data.news_category)
 }
 
-const displayCategory = async (categories) => {
-    // console.log(categories)
+const displayCategory = (categories) => {
+    // console.log(categories.length)
     const categoriesList = document.getElementById('category-name')
 
     categories.forEach(category => {
@@ -15,16 +15,17 @@ const displayCategory = async (categories) => {
         // console.log(category.category_name)
         const categoryList = document.createElement('div')
         categoryList.innerHTML = `
-        <p onclick="loadCategoryDetails('${category.category_id}')"> ${category.category_name}</p>
+        <p onclick="loadCategoryDetails('${category.category_id}')"> ${category.category_name ? category.category_name : alert('no medssadfkjkdjsa')}</p>
         `;
-        categoriesList.appendChild(categoryList)
+        categoriesList.appendChild(categoryList);
+        // spinLoader(true)
 
     })
 }
 
 
 const loadCategoryDetails = async (category_id) => {
-    // console.log(category_id)
+    // console.log(category_id.length)
     const url = `https://openapi.programming-hero.com/api/news/category/${category_id}`
     // console.log(url)
     const res = await fetch(url)
@@ -34,10 +35,17 @@ const loadCategoryDetails = async (category_id) => {
 }
 
 const displayCategoryDetails = async (categorys) => {
-    // console.log(categorys)
+
+    const foundItems = document.getElementById('found-items')
+    foundItems.innerText = categorys.length;
+    if (categorys.length === 0) {
+        alert('No news found')
+    }
+
     const sectionDetails = document.getElementById('section-details');
     sectionDetails.textContent = ``
     categorys.forEach(category => {
+
         console.log(category)
         const sectionDiv = document.createElement('div')
         sectionDiv.classList.add('card')
@@ -51,14 +59,14 @@ const displayCategoryDetails = async (categorys) => {
             <div class="card-body">
                 <h5 class="card-title">${category.title}</h5>
                 <p class="card-text">${category.details.slice(0, 500)}
-    }</p >
+    }.....</p >
     <div class="card-text d-flex justify-content-between">
     <div class="d-flex">
     <img class="mx-3" style="height: 50px; width: 50px; border-radius: 50px;" src="${category.author.img}" alt="">
     <p class="mt-2"> ${category.author.name ? category.author.name : 'No found author'}</p>
     </div>
     <div> 
-    <p> ${category.total_view}</p>
+    <p> ${category.total_view ? category.total_view : 'No view'}</p>
     </div>
     <div>
     <button onclick="loadModalDetails('${category._id}')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
@@ -110,4 +118,14 @@ document.getElementById('bolg-section').addEventListener('click', function () {
    <h5  class="mt-4"><strong class="text-success">3. Advantage of using template string : </strong> A template is a sample document that has some pre defined format which contain image or text that may be changed and used by the user easily. It helps you save money and time. Templates promote client satisfaction and clarity. It boosts productivity. </h5>
    `
 })
+
+// const spinLoader = (isLoading) => {
+//     const spinLoader = document.getElementById('loader')
+//     if (isLoading === true) {
+//         spinLoader.classList.remove('d-none')
+//     }
+//     else {
+//         spinLoader.classList.add('d-none')
+//     }
+// }
 loadCategory()
