@@ -60,7 +60,7 @@ const displayCategoryDetails = async (categorys) => {
     <p> ${category.total_view}</p>
     </div>
     <div>
-    <button class="btn btn-primary">search</button>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Details</button>
     </div>
     </div>
     `;
