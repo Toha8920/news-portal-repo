@@ -112,8 +112,11 @@ const displayModalDetails = (id) => {
     <p>Published Date:${id.author.published_date ? id.author.published_date : "No found message"}</p>
     <p>Is today Pick:${id.others_info.is_todays_pick}</p>
     <p>Ratting Badge:${id.rating.badge}</p>
+    <p>Author Picture =>  <img src="${id.author.img}"style="height: 150px; width: 150px; border-radius: 15px;"></p>
+   
+    <p>News Thumbnail => <img src="${id.thumbnail_url}"style="height: 300px; width: 300px; border-radius: 10px;"></p>
     
-    <img src="${id.author.img}"style="height: 300px; width: 300px; border-radius: 10px;">
+    <p>Full details:${id.details}</p>
     `
 }
 
