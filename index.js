@@ -36,7 +36,6 @@ const loadCategoryDetails = async (category_id) => {
 }
 
 const displayCategoryDetails = async (categorys) => {
-    console.log(categorys)
 
     const foundItems = document.getElementById('found-items')
     foundItems.innerText = categorys.length;
@@ -53,10 +52,6 @@ const displayCategoryDetails = async (categorys) => {
     const sectionDetails = document.getElementById('section-details');
     sectionDetails.textContent = ``
     categorys.forEach(category => {
-
-        console.log(category)
-
-
 
         const sectionDiv = document.createElement('div')
         sectionDiv.classList.add('card')
@@ -102,7 +97,7 @@ const loadModalDetails = async (_id) => {
 }
 
 const displayModalDetails = (id) => {
-    console.log(id)
+
     const modalTitle = document.getElementById('modal-title')
     modalTitle.innerText = id.title;
     const modalBody = document.getElementById('modal-body')
@@ -114,7 +109,7 @@ const displayModalDetails = (id) => {
     <p>Ratting Badge:${id.rating.badge}</p>
     <p>Author Picture =>  <img src="${id.author.img}"style="height: 150px; width: 150px; border-radius: 15px;"></p>
    
-    <p>News Thumbnail => <img src="${id.thumbnail_url}"style="height: 300px; width: 300px; border-radius: 10px;"></p>
+    <p>News Thumbnail => <img src="${id.thumbnail_url}"style="height: 200px; width: 200px; border-radius: 10px;"></p>
     
     <p>Full details:${id.details}</p>
     `
