@@ -35,6 +35,7 @@ const loadCategoryDetails = async (category_id) => {
 }
 
 const displayCategoryDetails = async (categorys) => {
+    console.log(categorys)
 
     const foundItems = document.getElementById('found-items')
     foundItems.innerText = categorys.length;
@@ -42,11 +43,20 @@ const displayCategoryDetails = async (categorys) => {
         alert('No news found')
     }
 
+    categorys.sort((a, b) => {
+        return b.total_view - a.total_view
+    })
+
+
+
     const sectionDetails = document.getElementById('section-details');
     sectionDetails.textContent = ``
     categorys.forEach(category => {
 
         console.log(category)
+
+
+
         const sectionDiv = document.createElement('div')
         sectionDiv.classList.add('card')
         sectionDiv.classList.add('mb-3')
@@ -128,4 +138,7 @@ document.getElementById('bolg-section').addEventListener('click', function () {
 //         spinLoader.classList.add('d-none')
 //     }
 // }
+
+
+
 loadCategory()
