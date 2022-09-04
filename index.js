@@ -18,13 +18,14 @@ const displayCategory = (categories) => {
         <p onclick="loadCategoryDetails('${category.category_id}')"> ${category.category_name ? category.category_name : alert('no medssadfkjkdjsa')}</p>
         `;
         categoriesList.appendChild(categoryList);
-        // spinLoader(true)
+
 
     })
 }
 
 
 const loadCategoryDetails = async (category_id) => {
+    spinLoader(true)
     // console.log(category_id.length)
     const url = `https://openapi.programming-hero.com/api/news/category/${category_id}`
     // console.log(url)
@@ -68,8 +69,7 @@ const displayCategoryDetails = async (categorys) => {
         <div class="col-md-8">
             <div class="card-body">
                 <h5 class="card-title">${category.title}</h5>
-                <p class="card-text">${category.details.slice(0, 500)}
-    }.....</p >
+                <p class="card-text">${category.details.slice(0, 500)}  ......</p >
     <div class="card-text d-flex justify-content-between">
     <div class="d-flex">
     <img class="mx-3" style="height: 50px; width: 50px; border-radius: 50px;" src="${category.author.img}" alt="">
@@ -89,7 +89,7 @@ const displayCategoryDetails = async (categorys) => {
     });
 
 
-
+    spinLoader(false)
 }
 
 
@@ -129,16 +129,16 @@ document.getElementById('bolg-section').addEventListener('click', function () {
    `
 })
 
-// const spinLoader = (isLoading) => {
-//     const spinLoader = document.getElementById('loader')
-//     if (isLoading === true) {
-//         spinLoader.classList.remove('d-none')
-//     }
-//     else {
-//         spinLoader.classList.add('d-none')
-//     }
-// }
+const spinLoader = (isLoading) => {
+    const spinLoader = document.getElementById('loader')
+    if (isLoading === true) {
+        spinLoader.classList.remove('d-none')
+    }
+    else {
+        spinLoader.classList.add('d-none')
+    }
+}
 
 
-
+loadCategoryDetails('08')
 loadCategory()
